@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>事件流</title>
+	<script src="function.js"></script>
+</head>
+<style>
+	*{
+		margin: 0;
+		padding: 0;
+		list-style: none;
+	}
+	/*.box{
+		width: 500px;
+		height: 500px;
+		border: 1px solid #000;
+		margin: 0 auto;
+		padding-top: 50px;
+	}
+	.son{
+		width: 300px;
+		height: 300px;
+		background-color: pink;
+		margin: 0 auto;
+	}
+	h1{
+		text-align: center;
+		margin-top: 50px;
+	}*/
+	body{
+		padding: 100px;
+	}
+	.box{
+		width: auto;
+		height: auto;
+	}
+	.con{
+		width: 500px;
+		height: 300px;
+		border: 1px solid #000;
+		margin: 0 auto;
+	}
+	.box tr{
+		width: 100%;
+		height: auto;
+		background-color: #ccc;
+	}
+	.box tr td{
+		text-align: center;
+	}
+	.box tr:nth-child(2n){
+		background-color: #ccc;
+	}
+	.box tr:nth-child(2n+1){
+		background-color: #999;
+	}
+	button{
+		width: 50px;
+		height: 30px;
+		margin-left: 850px;
+		margin-top: 20px;
+	}
+</style>
+<body>
+	<!-- <div class="box">
+		<div class="son"></div>
+		<h1>这是彩色</h1>
+	</div>
+	<div class="brother"></div> -->
+	<div class="box">
+		<table class="con">
+			<tr>
+				<th>姓名</th>
+				<th>年龄</th>
+				<th>性别</th>
+				<th>电话</th>
+				<th>操作</th>
+			</tr>
+			<tr>
+				<td>张三</td>
+				<td>20</td>
+				<td>男</td>
+				<td>15612132845</td>
+				<td class="del">删除</td>
+			</tr>
+			<tr>
+				<td>张三</td>
+				<td>20</td>
+				<td>男</td>
+				<td>15612132845</td>
+				<td class="del">删除</td>
+			</tr>
+			<tr>
+				<td>张三</td>
+				<td>20</td>
+				<td>男</td>
+				<td>15612132845</td>
+				<td class="del">删除</td>
+			</tr>
+			<tr>
+				<td>张三</td>
+				<td>20</td>
+				<td>男</td>
+				<td>15612132845</td>
+				<td class="del">删除</td>
+			</tr>
+			<tr>
+				<td>张三</td>
+				<td>20</td>
+				<td>男</td>
+				<td>15612132845</td>
+				<td class="del">删除</td>
+			</tr>
+		</table>
+		<button>添加</button>
+	</div>
+</body>
+</html>
+<script>
+	// $(function(){
+	// 	let box = $('.box')[0];
+	// 	let son = $('.son',box)[0];
+
+	// 	// 点击son变圆
+	// 	// 点击h1换色
+	// 	// 操作box
+	// 	box.onclick = function(e){
+	// 		let element = e.target;
+	// 		if(element.className == 'son'){
+	// 			element.style.borderRadius = '50%';
+	// 		}else if(element.nodeName == 'H1'){
+	// 			element.style.color = 'orangered';
+	// 		}
+	// 	}
+	// })
+</script>
+
+<script>
+	window.onload = function(){
+		let table = document.querySelector('tbody');
+		let but = document.querySelector('button');
+		let del = document.querySelectorAll('.del');
+		table.ondblclick = function(e){
+			let element = e.target;
+			if(element.nodeName == 'TD' && element.className != 'del'){
+				let input = document.createElement('input');
+				let old = element.innerText;
+				element.innerText = '';
+				element.appendChild(input);
+				input.value = old;
+				input.onblur = function(){
+					let news = input.value;
+					element.innerText = news;
+				}
+			}else if(element.className == 'del'){
+				let chu = element.parentNode;
+				table.removeChild(chu);
+			}
+		}
+		but.onclick = function(){
+			table.innerHTML = table.innerHTML+`
+				<tr>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td class="del">删除</td>
+				</tr>
+			`
+		}
+	}
+</script>
